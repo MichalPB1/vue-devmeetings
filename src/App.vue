@@ -5,6 +5,8 @@
 
     <product-list :products="products" @remove="removeProduct(...arguments)"></product-list>
 
+    <button class="btn" type="button" @click="loadMore()">Load more</button>
+
     <h2>Add new product</h2>
     <form @submit.prevent="newProduct">
       <input v-validate="'required'" v-model="productName" name="productName" placeholder="Product name" autocomplete="off">
@@ -18,6 +20,7 @@
 
 <script>
 import ProductList from './components/ProductList.vue'
+import { mapGetters, mapActions } from 'vuex'
 
 const randomId = () => Math.floor(Math.random() * (100 - 1) + 1);
 
@@ -26,31 +29,19 @@ export default {
   data() {
     return {
       productName: '',
-      products: [
-        {
-          id: 1,
-          name: 'Apple',
-          price: 10.99
-        },
-        {
-          id: 2,
-          name: 'Orange',
-          price: 15.99
-        },
-        {
-          id: 3,
-          name: 'Lemon',
-          price: 19.99
-        },
-        {
-          id: 3,
-          name: 'Bannana',
-          price: 199.99
-        }
-      ]
+      page: 1
     }
   },
+  computed: {
+    ...mapGetters({
+      products: 'productsStore/products'
+    })
+  },
   methods: {
+    ...mapActions({
+      getProducts: 'productsStore/get',
+      loadMore: 'productsStore/loadMore'
+    }),
     newProduct() {
 
       this.$validator.validate().then(result => {
@@ -77,6 +68,9 @@ export default {
   },
   components: {
     ProductList
+  },
+  mounted() {
+    this.getProducts(this.page)
   }
 }
 </script>

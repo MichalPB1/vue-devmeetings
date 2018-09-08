@@ -30,7 +30,7 @@ export default {
   computed: {
     filteredList() {
       return this.products.filter((product) => {
-        return product.name.toLowerCase().includes(this.search.toLowerCase())
+        return product.Name.toLowerCase().includes(this.search.toLowerCase())
       })
     }
   },

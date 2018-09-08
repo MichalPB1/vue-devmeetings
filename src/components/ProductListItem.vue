@@ -4,10 +4,10 @@
       <img src="https://via.placeholder.com/50x50" />
     </div>
     <div class="product-name">
-      {{ offer.name }}
+      {{ offer.Name }}
     </div>
     <div class="product-price">
-      <b>{{ offer.price }} PLN</b>
+      <b>{{ offer.Price }} {{ offer.CurrencyCode }}</b>
     </div>
     <button class="product-remove" @click="removeProduct(offer.id)">×</button>
   </div>
