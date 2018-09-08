@@ -2,12 +2,8 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <h1>Mini Shop</h1>
-    <template v-if="products.length">
-      <div class="products">
-          <product :offer="product" v-for="(product, index) in products" :key="index" @remove="removeProduct(index)"></product>
-      </div>
-    </template>
-    <p v-else>No products</p>
+
+    <product-list :products="products" @remove="removeProduct(...arguments)"></product-list>
 
     <h2>Add new product</h2>
     <form @submit.prevent="newProduct">
@@ -21,7 +17,7 @@
 </template>
 
 <script>
-import Product from './components/Product.vue'
+import ProductList from './components/ProductList.vue'
 
 const randomId = () => Math.floor(Math.random() * (100 - 1) + 1);
 
@@ -59,15 +55,20 @@ export default {
           })
 
           this.productName = ''
+          this.$validator.reset()
         }
       });
     },
-    removeProduct(index) {
-      this.products.splice(index, 1);
+    removeProduct(id) {
+      this.products.forEach((product, index) => {
+        if (product.id === id) {
+          this.products.splice(index, 1);
+        }
+      })
     }
   },
   components: {
-    Product
+    ProductList
   }
 }
 </script>
@@ -88,13 +89,6 @@ input {
   width: 100%;
   box-sizing: border-box;
 }
-.products {
-  width: 800px;
-  margin: 0 auto;
-}
-.products .product:nth-child(odd) {
-  background: #f2f2f2;
-}
 .btn {
   border: 1px solid #ccc;
   padding: 10px 20px;
@@ -106,12 +100,5 @@ input {
   font-size: 18px;
   padding: 20px;
   cursor: pointer;
-}
-.error {
-  color: red;
-  text-align: left;
-}
-.error:empty {
-  display: none;
 }
 </style>
