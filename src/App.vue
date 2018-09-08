@@ -3,22 +3,19 @@
     <img alt="Vue logo" src="./assets/logo.png">
     <h1>Mini Shop</h1>
     <template v-if="products.length">
-      <h1>Products</h1>
       <div class="products">
-          <div class="product" v-for="(product, index) in products" :key="index">
-            <div class="product-name">
-              {{ product.name }}
-            </div>
-            <button class="product-remove" @click="removeProduct(index)">×</button>
-          </div>
+          <product :offer="product" v-for="(product, index) in products" :key="index" @remove="removeProduct(index)"></product>
       </div>
     </template>
     <p v-else>No products</p>
 
     <h2>Add new product</h2>
     <form @submit.prevent="newProduct">
-      <input v-model="productName" placeholder="Product name">
-      <button type="subm">Dodaj nowy produkt :)</button>
+      <input v-validate="'required'" v-model="productName" name="productName" placeholder="Product name" autocomplete="off">
+      <p class="error">
+        {{ errors.first('productName') }}
+      </p>
+      <button class="btn btn-action" type="subm">Dodaj nowy produkt :)</button>
     </form>
   </div>
 </template>
@@ -52,19 +49,18 @@ export default {
   methods: {
     newProduct() {
 
-      if (!this.productName.length) {
-        alert('Please set a product name')
-        return
-      }
+      this.$validator.validate().then(result => {
+        if (result) {
+          const id = randomId();
 
-      const id = randomId();
+          this.products.push({
+            id: id,
+            name: this.productName
+          })
 
-      this.products.push({
-        id: id,
-        name: this.productName
-      })
-
-      this.productName = ''
+          this.productName = ''
+        }
+      });
     },
     removeProduct(index) {
       this.products.splice(index, 1);
@@ -84,24 +80,38 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  max-width: 800px;
+  margin: 60px auto 0 auto;
+}
+input {
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
 }
 .products {
   width: 800px;
-  border: 1px solid #e1e1e1;
   margin: 0 auto;
 }
 .products .product:nth-child(odd) {
-  background: #e1e1e1;
+  background: #f2f2f2;
 }
-.product {
-  display: flex;
+.btn {
+  border: 1px solid #ccc;
   padding: 10px 20px;
-  flex-direction: row;
-  justify-content: space-between;
 }
-.product-remove {
-    background: none;
-    border: 0;
-    font-size: 20px;
+.btn-action {
+  background: #41b883;
+  color: #fff;
+  width: 100%;
+  font-size: 18px;
+  padding: 20px;
+  cursor: pointer;
+}
+.error {
+  color: red;
+  text-align: left;
+}
+.error:empty {
+  display: none;
 }
 </style>
