@@ -8,12 +8,16 @@
 </head>
 <body>
   <div id="app">
-    <h1>Products</h1>
-    <ul>
-      <li v-for="product in products">
-        {{ product.name }}
-      </li>
-    </ul>
+    <template v-if="products.length">
+      <h1>Products</h1>
+      <ul>
+        <li v-for="(product, index) in products">
+          {{ product.name }}
+          <button @click="removeProduct(index)">×</button>
+        </li>
+      </ul>
+    </template>
+    <p v-else>No products</p>
 
     <h2>Add new product</h2>
     <form @submit.prevent="newProduct">

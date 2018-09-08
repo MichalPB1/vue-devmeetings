@@ -35,6 +35,9 @@ new Vue({
       })
 
       this.productName = ''
+    },
+    removeProduct(index) {
+      this.products.splice(index, 1);
     }
   }
 })
