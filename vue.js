@@ -3,7 +3,7 @@ const randomId = () => Math.floor(Math.random() * (100 - 1) + 1);
 new Vue({
   el: '#app',
   data: {
-    test: 'Dev Meetings',
+    productName: '',
     products: [
       {
         id: 1,
@@ -21,12 +21,20 @@ new Vue({
   },
   methods: {
     newProduct() {
+
+      if (!this.productName.length) {
+        alert('Please set a product name')
+        return
+      }
+
       const id = randomId();
 
       this.products.push({
         id: id,
-        name: `Product ${id}`
+        name: this.productName
       })
+
+      this.productName = ''
     }
   }
 })
