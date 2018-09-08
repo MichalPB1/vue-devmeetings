@@ -55,7 +55,7 @@ export default {
           })
 
           this.productName = ''
-          this.$validator.reset()
+          this.$validator.reset() 
         }
       });
     },
