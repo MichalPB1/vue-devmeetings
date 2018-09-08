@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped>
 .products {
   width: 800px;
   margin: 0 auto;

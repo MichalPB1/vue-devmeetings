@@ -11,7 +11,7 @@
       <p class="error">
         {{ errors.first('productName') }}
       </p>
-      <button class="btn btn-action" type="subm">Dodaj nowy produkt :)</button>
+      <button class="btn btn-action" type="subm">Add new product :)</button>
     </form>
   </div>
 </template>
@@ -55,7 +55,7 @@ export default {
           })
 
           this.productName = ''
-          this.$validator.reset() 
+          this.$validator.reset()
         }
       });
     },
