@@ -29,15 +29,23 @@ export default {
       products: [
         {
           id: 1,
-          name: 'Product 1'
+          name: 'Apple',
+          price: 10.99
         },
         {
           id: 2,
-          name: 'Product 2'
+          name: 'Orange',
+          price: 15.99
         },
         {
           id: 3,
-          name: 'Product 3'
+          name: 'Lemon',
+          price: 19.99
+        },
+        {
+          id: 3,
+          name: 'Bannana',
+          price: 199.99
         }
       ]
     }

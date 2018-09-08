@@ -6,6 +6,9 @@
     <div class="product-name">
       {{ offer.name }}
     </div>
+    <div class="product-price">
+      <b>{{ offer.price }} PLN</b>
+    </div>
     <button class="product-remove" @click="removeProduct(offer.id)">×</button>
   </div>
 </template>
