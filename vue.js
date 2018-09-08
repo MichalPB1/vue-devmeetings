@@ -1,3 +1,5 @@
+const randomId = () => Math.floor(Math.random() * (100 - 1) + 1);
+
 new Vue({
   el: '#app',
   data: {
@@ -16,5 +18,15 @@ new Vue({
         name: 'Product 3'
       }
     ]
+  },
+  methods: {
+    newProduct() {
+      const id = randomId();
+
+      this.products.push({
+        id: id,
+        name: `Product ${id}`
+      })
+    }
   }
 })
