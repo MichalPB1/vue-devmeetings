@@ -4,12 +4,14 @@
     <h1>Mini Shop</h1>
     <template v-if="products.length">
       <h1>Products</h1>
-      <ul>
-        <li v-for="(product, index) in products" :key="index">
-          {{ product.name }}
-          <button @click="removeProduct(index)">×</button>
-        </li>
-      </ul>
+      <div class="products">
+          <div class="product" v-for="(product, index) in products" :key="index">
+            <div class="product-name">
+              {{ product.name }}
+            </div>
+            <button class="product-remove" @click="removeProduct(index)">×</button>
+          </div>
+      </div>
     </template>
     <p v-else>No products</p>
 
@@ -82,5 +84,24 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.products {
+  width: 800px;
+  border: 1px solid #e1e1e1;
+  margin: 0 auto;
+}
+.products .product:nth-child(odd) {
+  background: #e1e1e1;
+}
+.product {
+  display: flex;
+  padding: 10px 20px;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.product-remove {
+    background: none;
+    border: 0;
+    font-size: 20px;
 }
 </style>
